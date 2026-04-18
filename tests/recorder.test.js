@@ -32,7 +32,7 @@ describe('recordCapture (Node)', () => {
   })
 
   it('writes a PNG and returns an absolute path', async () => {
-    tempDir = await mkdtemp(join(tmpdir(), 'evth-rec-'))
+    tempDir = await mkdtemp(join(tmpdir(), 'tmrh-rec-'))
     const cap = makeCapture('t1')
     const path = await recordCapture(cap, { outDir: tempDir, flipY: false })
     expect(path.startsWith(tempDir)).toBe(true)
@@ -42,7 +42,7 @@ describe('recordCapture (Node)', () => {
   })
 
   it('round-trips through encode + decode', async () => {
-    tempDir = await mkdtemp(join(tmpdir(), 'evth-rec-'))
+    tempDir = await mkdtemp(join(tmpdir(), 'tmrh-rec-'))
     const cap = makeCapture('t2', 16, 16)
     const path = await recordCapture(cap, { outDir: tempDir, flipY: false })
     const bytes = new Uint8Array(await readFile(path))

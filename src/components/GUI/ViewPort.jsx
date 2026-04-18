@@ -46,8 +46,8 @@ export function ViewPort({ candidatePixels, referencePixels }) {
   }, [candidatePixels, referencePixels])
 
   return (
-    <main className="evth-viewport">
-      <div className="evth-pane">
+    <main className="tmrh-viewport">
+      <div className="tmrh-pane">
         <div className="label">Candidate (Three.js, live)</div>
         <div className="body" style={{ background: '#000' }}>
           <Canvas
@@ -72,7 +72,7 @@ export function ViewPort({ candidatePixels, referencePixels }) {
           </Canvas>
         </div>
       </div>
-      <div className="evth-pane">
+      <div className="tmrh-pane">
         <div className="label">Reference (External)</div>
         <div className="body">
           {activeTest?.referenceImagePath
@@ -80,7 +80,7 @@ export function ViewPort({ candidatePixels, referencePixels }) {
             : <span style={{ color: 'var(--muted)' }}>no active test</span>}
         </div>
       </div>
-      <div className="evth-pane">
+      <div className="tmrh-pane">
         <div className="label">
           Diff
           {current && <span style={{ color: current.verdict === 'pass' ? 'var(--pass)' : 'var(--fail)', marginLeft: 6 }}>

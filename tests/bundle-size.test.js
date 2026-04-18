@@ -3,7 +3,7 @@ import { stat, readFile, access } from 'node:fs/promises'
 import { gzipSync } from 'node:zlib'
 import { execSync } from 'node:child_process'
 
-const BUNDLE = 'dist/extern-material-three-visual-test-harness.mjs'
+const BUNDLE = 'dist/three-material-regress-harness.mjs'
 
 // SPEC-10 NFR: the library ESM bundle (excluding peer deps) is ≤ 120 KB gzipped.
 const GZIP_BUDGET = 120 * 1024
@@ -25,7 +25,7 @@ describe('bundle size budget', () => {
     const bytes = await readFile(BUNDLE)
     const gz = gzipSync(bytes)
     // eslint-disable-next-line no-console
-    console.log(`[evth] bundle: ${bytes.length} bytes (${gz.length} gzipped) / budget ${GZIP_BUDGET}`)
+    console.log(`[tmrh] bundle: ${bytes.length} bytes (${gz.length} gzipped) / budget ${GZIP_BUDGET}`)
     expect(gz.length).toBeLessThanOrEqual(GZIP_BUDGET)
   })
 

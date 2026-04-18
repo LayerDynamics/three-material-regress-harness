@@ -40,7 +40,7 @@ export async function writeHtmlReport(report, path) {
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>evth run ${ESC(report.startedAt)}</title>
+  <title>tmrh run ${ESC(report.startedAt)}</title>
   <style>
     body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 1rem 2rem; }
     h1 { margin-bottom: 0.25rem; }
@@ -60,7 +60,7 @@ export async function writeHtmlReport(report, path) {
   </style>
 </head>
 <body>
-  <h1>evth regression report</h1>
+  <h1>three-material-regress-harness report</h1>
   <div class="meta">
     Started ${ESC(report.startedAt)} · Completed ${ESC(report.completedAt)} ·
     git ${ESC(report.gitSha)} · three ${ESC(report.three)} · r3f ${ESC(report.r3f)} · node ${ESC(report.node)}

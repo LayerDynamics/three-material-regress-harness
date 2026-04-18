@@ -72,7 +72,7 @@ test.describe('Harness.capture', () => {
     if (!equal) {
       // Log the observed noise for visibility but don't fail the test.
       // eslint-disable-next-line no-console
-      console.log(`[evth] determinism noise: maxDiff=${maxDiff}`)
+      console.log(`[tmrh] determinism noise: maxDiff=${maxDiff}`)
     }
   })
 

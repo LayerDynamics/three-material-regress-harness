@@ -21,15 +21,15 @@ export function Sidebar() {
 
   if (groups.length === 0) {
     return (
-      <aside className="evth-sidebar">
+      <aside className="tmrh-sidebar">
         <h2>Tests</h2>
-        <div className="empty">No corpus loaded. Drop a manifest.json or run `evth run`.</div>
+        <div className="empty">No corpus loaded. Drop a manifest.json or run `tmrh run`.</div>
       </aside>
     )
   }
 
   return (
-    <aside className="evth-sidebar">
+    <aside className="tmrh-sidebar">
       <h2>Tests</h2>
       {groups.map(({ variant, tests }) => (
         <div className="group" key={variant}>

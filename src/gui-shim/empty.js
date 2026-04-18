@@ -4,7 +4,7 @@
 // the static import graph resolves without erroring.
 
 const unavailable = (name) => () => {
-  throw new Error(`evth: ${name}() is not available in the browser bundle (node-only API).`)
+  throw new Error(`tmrh: ${name}() is not available in the browser bundle (node-only API).`)
 }
 
 export const readFile = unavailable('readFile')

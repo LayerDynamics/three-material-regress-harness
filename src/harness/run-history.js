@@ -1,7 +1,7 @@
 // Run-history store — persists RegressionReports to IndexedDB (browser) and
 // to disk (Node). Used by the GUI time-travel drawer to compare two prior runs.
 
-const DB_NAME = 'evth_runs'
+const DB_NAME = 'tmrh_runs'
 const DB_VERSION = 1
 const STORE = 'runs'
 

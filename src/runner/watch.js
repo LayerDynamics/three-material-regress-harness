@@ -44,7 +44,7 @@ export async function startWatch(config, runFn, opts = {}) {
         await runFn(merged)
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.error(`[evth watch] run failed: ${err?.message ?? err}`)
+        console.error(`[tmrh watch] run failed: ${err?.message ?? err}`)
       } finally {
         running = false
       }

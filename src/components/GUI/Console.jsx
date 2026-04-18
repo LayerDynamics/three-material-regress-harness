@@ -4,7 +4,7 @@ export function Console() {
   const events = useHarnessStore((s) => s.events)
   const last = events.slice(-100)
   return (
-    <section className="evth-console">
+    <section className="tmrh-console">
       {last.length === 0 && <div style={{ color: 'var(--muted)' }}>no harness events yet</div>}
       {last.map((e, i) => (
         <div className="row" key={i}>

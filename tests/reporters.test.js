@@ -44,7 +44,7 @@ let dir
 
 describe('reporters', () => {
   beforeAll(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'evth-rep-'))
+    dir = await mkdtemp(join(tmpdir(), 'tmrh-rep-'))
   })
 
   afterAll(async () => {
@@ -71,7 +71,7 @@ describe('reporters', () => {
   it('HTML: contains pass/fail rows + summary + thumbnails for failing test', async () => {
     const p = await writeHtmlReport(REPORT, join(dir, 'report.html'))
     const html = await readFile(p, 'utf8')
-    expect(html).toMatch(/<h1>evth regression report<\/h1>/)
+    expect(html).toMatch(/<h1>three-material-regress-harness report<\/h1>/)
     expect(html).toMatch(/Passed.*1/s)
     expect(html).toMatch(/Failed.*1/s)
     expect(html).toMatch(/tr class="pass"/)

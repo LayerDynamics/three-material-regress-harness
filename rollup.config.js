@@ -13,7 +13,7 @@ const stripJsDoc = {
 
 // Transpile .jsx files via esbuild.
 const jsxTransform = {
-  name: 'evth-jsx',
+  name: 'tmrh-jsx',
   async transform(code, id) {
     if (!id.endsWith('.jsx')) return null
     const result = await transform(code, {
@@ -31,7 +31,7 @@ const jsxTransform = {
 export default {
   input: 'src/index.js',
   output: {
-    file: 'dist/extern-material-three-visual-test-harness.mjs',
+    file: 'dist/three-material-regress-harness.mjs',
     format: 'esm',
     sourcemap: true,
   },

@@ -4,7 +4,7 @@ import { mkdir, writeFile, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 
-const ROOT = join(tmpdir(), 'evth-tolerances-test')
+const ROOT = join(tmpdir(), 'tmrh-tolerances-test')
 
 describe('loadTolerances', () => {
   beforeAll(async () => {

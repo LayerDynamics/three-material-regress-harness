@@ -8,9 +8,9 @@ export function Topbar({ onRun, onCapture, onToggleHistory }) {
   const corpusDir = useTestStore((s) => s.corpusDir)
 
   return (
-    <header className="evth-topbar">
-      <span className="title">evth</span>
-      <span className="sub">extern-material-three-visual-test-harness</span>
+    <header className="tmrh-topbar">
+      <span className="title">tmrh</span>
+      <span className="sub">three-material-regress-harness</span>
       <span className="spacer" />
       <select
         value={mode}

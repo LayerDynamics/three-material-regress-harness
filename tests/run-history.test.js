@@ -46,7 +46,7 @@ describe('diffReports', () => {
 describe('listRunsNode', () => {
   let dir
   beforeAll(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'evth-rh-'))
+    dir = await mkdtemp(join(tmpdir(), 'tmrh-rh-'))
     await mkdir(join(dir, '2026-04-16T10-00-00-abc'), { recursive: true })
     await writeFile(join(dir, '2026-04-16T10-00-00-abc', 'report.json'), JSON.stringify({ startedAt: '2026-04-16T10:00:00Z', results: [] }))
     await mkdir(join(dir, '2026-04-18T10-00-00-def'), { recursive: true })

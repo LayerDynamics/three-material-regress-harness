@@ -52,7 +52,7 @@ export function RunHistoryDrawer({ open, onClose }) {
       {runs.length < 2 && <div style={{ color: 'var(--muted)' }}>Need at least two saved runs to compare.</div>}
       {runs.length >= 2 && (
         <>
-          <div className="evth-params" style={{ marginBottom: '0.5rem' }}>
+          <div className="tmrh-params" style={{ marginBottom: '0.5rem' }}>
             <span className="k">left (A)</span>
             <RunSelect runs={runs} value={leftId} onChange={setLeftId} />
             <span className="k">right (B)</span>

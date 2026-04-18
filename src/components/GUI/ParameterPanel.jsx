@@ -44,9 +44,9 @@ export function ParameterPanel() {
   }
 
   return (
-    <aside className="evth-panel">
+    <aside className="tmrh-panel">
       <h2>Metrics</h2>
-      <div className="evth-metrics">
+      <div className="tmrh-metrics">
         {diff ? (
           <>
             <div className="row"><span className="k">Verdict</span><span className={`verdict-${diff.verdict}`}>{diff.verdict}</span></div>
@@ -61,7 +61,7 @@ export function ParameterPanel() {
       </div>
 
       <h2>Material</h2>
-      <div className="evth-params">
+      <div className="tmrh-params">
         {def ? (
           <>
             {COLOR_FIELDS.map((k) => (

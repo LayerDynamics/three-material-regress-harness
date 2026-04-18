@@ -19,21 +19,21 @@ export async function writeJunitReport(report, path) {
     const name = ESC(r.testId)
     const time = secs(r.durationMs)
     if (r.verdict === 'pass') {
-      return `    <testcase classname="evth" name="${name}" time="${time}"/>`
+      return `    <testcase classname="tmrh" name="${name}" time="${time}"/>`
     }
     const failMsg = ESC(
       `rmse=${r.diff?.rmse ?? 'n/a'} ssim=${r.diff?.ssim ?? 'n/a'} ` +
       `pixelMismatchPct=${r.diff?.pixelMismatchPct ?? 'n/a'} maxChannelDiff=${r.diff?.maxChannelDiff ?? 'n/a'} ` +
       (r.error ? `error=${r.error}` : ''),
     )
-    return `    <testcase classname="evth" name="${name}" time="${time}">
+    return `    <testcase classname="tmrh" name="${name}" time="${time}">
       <failure message="tolerance exceeded" type="${r.verdict === 'warn' ? 'warn' : 'fail'}">${failMsg}</failure>
     </testcase>`
   }).join('\n')
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="evth" tests="${report.testCount}" failures="${report.failCount}" time="${totalTime}">
-  <testsuite name="extern-material-three-visual-test-harness" tests="${report.testCount}" failures="${report.failCount}" errors="0" time="${totalTime}" timestamp="${ESC(report.startedAt)}">
+<testsuites name="tmrh" tests="${report.testCount}" failures="${report.failCount}" time="${totalTime}">
+  <testsuite name="three-material-regress-harness" tests="${report.testCount}" failures="${report.failCount}" errors="0" time="${totalTime}" timestamp="${ESC(report.startedAt)}">
 ${testCaseXml}
   </testsuite>
 </testsuites>

@@ -1,6 +1,6 @@
-// Public ESM surface for extern-material-three-visual-test-harness.
+// Public ESM surface for three-material-regress-harness.
 // Milestone 1 exports the contract shape. Internals are filled in per-milestone
-// (see docs/plans/2026-04-18-extern-material-three-visual-test-harness-implementation.md).
+// (see docs/plans/2026-04-18-three-material-regress-harness-implementation.md).
 
 // ── Harness lifecycle ────────────────────────────────────────────────────────
 export { Harness } from './harness/harness.js'

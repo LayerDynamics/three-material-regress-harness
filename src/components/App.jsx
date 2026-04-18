@@ -127,7 +127,7 @@ export function App() {
   const probeSweeps = useMemo(() => sweepResultsRef.current, [])
 
   return (
-    <div className="evth-app">
+    <div className="tmrh-app">
       <Topbar
         onRun={onRun}
         onCapture={onCapture}

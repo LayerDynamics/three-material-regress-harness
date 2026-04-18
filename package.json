@@ -1,5 +1,5 @@
 {
-  "name": "extern-material-three-visual-test-harness",
+  "name": "three-material-regress-harness",
   "version": "0.1.0",
   "description": "Dual-mode visual regression harness for Three.js materials against external-renderer baselines.",
   "type": "module",
@@ -13,7 +13,7 @@
     }
   },
   "bin": {
-    "evth": "./src/runner/cli.js"
+    "tmrh": "./src/runner/cli.js"
   },
   "files": [
     "src/",

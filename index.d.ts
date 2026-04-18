@@ -1,4 +1,4 @@
-// extern-material-three-visual-test-harness — public surface.
+// three-material-regress-harness — public surface.
 // Hand-written, mirrors src/index.js. ESM only; no TypeScript compile step.
 
 import type { FC, ReactNode } from 'react'

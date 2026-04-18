@@ -8,8 +8,12 @@ describe('package.json contract', () => {
     expect(pkg.type).toBe('module')
   })
 
-  it('declares bin entry evth', () => {
-    expect(pkg.bin.evth).toBe('./src/runner/cli.js')
+  it('declares bin entry tmrh', () => {
+    expect(pkg.bin.tmrh).toBe('./src/runner/cli.js')
+  })
+
+  it('package name is three-material-regress-harness', () => {
+    expect(pkg.name).toBe('three-material-regress-harness')
   })
 
   it('declares public exports', () => {

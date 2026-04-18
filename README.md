@@ -1,8 +1,8 @@
-# extern-material-three-visual-test-harness
+# three-material-regress-harness
 
 > An installable, cloneable, dual-mode visual regression harness for Three.js materials. Drives a `@react-three/fiber` canvas against `MaterialDefinition` outputs from `kmp-three-suite`, captures deterministic screenshots, and diffs them against baselines from external renderers (KeyShot, Fusion, etc.).
 
-**Used in conjunction with KMP-Three-Suite.** See `docs/specs/SPEC-10-extern-material-three-visual-test-harness.md` for the full specification and `docs/plans/2026-04-18-extern-material-three-visual-test-harness-implementation.md` for the implementation plan.
+**Used in conjunction with KMP-Three-Suite.** See `docs/specs/SPEC-10-three-material-regress-harness.md` for the full specification and `docs/plans/2026-04-18-three-material-regress-harness-implementation.md` for the implementation plan.
 
 ## MUST-haves (from SPEC-10)
 
@@ -14,7 +14,7 @@
 ## Install
 
 ```sh
-npm install extern-material-three-visual-test-harness
+npm install three-material-regress-harness
 ```
 
 Peer dependencies (expected in the consumer tree):
@@ -31,7 +31,7 @@ Peer dependencies (expected in the consumer tree):
 
 ```sh
 git clone <this repo>
-cd extern-material-three-visual-test-harness
+cd three-material-regress-harness
 npm install
 npm run dev                # http://127.0.0.1:4175 — three-column live diff GUI
 ```
@@ -43,7 +43,7 @@ Drop a `.kmp` onto the page, pick a view, drag a slider — the diff metric upda
 ```sh
 npm ci
 npx playwright install chromium   # one-time
-npx evth run \
+npx tmrh run \
   --corpus samples-to-match-identically-kmp-files \
   --baseline baselines \
   --out out/runs \
@@ -61,7 +61,7 @@ Exit code 0 on pass, 1 on tolerance breach. Reports written to `out/runs/<timest
 ## Programmatic API
 
 ```javascript
-import { createHarness } from 'extern-material-three-visual-test-harness'
+import { createHarness } from 'three-material-regress-harness'
 
 const harness = createHarness({
   corpus: './samples-to-match-identically-kmp-files',
@@ -80,7 +80,7 @@ if (report.failCount > 0) process.exit(1)
 ### In-page capture
 
 ```javascript
-import { Harness, diffImages } from 'extern-material-three-visual-test-harness'
+import { Harness, diffImages } from 'three-material-regress-harness'
 
 const h = new Harness({
   materialDefinition: { color: '#cc5500', roughness: 0.35, metalness: 0.0, kmpShaderType: null },
@@ -100,7 +100,7 @@ h.dispose()
 ## CLI reference
 
 ```text
-evth [command] [options]
+tmrh [command] [options]
 
 Commands:
   run                       Run a regression pass (default)
@@ -195,7 +195,7 @@ Regression = `rmse > tolerance.rmse` OR `pixelMismatchPct > tolerance.pixelMisma
 The harness ships with a default `MeshPhysicalMaterial` fallback. For KeyShot-fidelity shaders (`lux_toon`, `metallic_paint`, `lux_translucent`, `lux_velvet`, `lux_anisotropic`, `lux_glass`, `lux_xray`), register handlers that match SPEC-07's signature:
 
 ```javascript
-import { registerShaderType } from 'extern-material-three-visual-test-harness'
+import { registerShaderType } from 'three-material-regress-harness'
 import { YourToonShader } from './shaders/ToonShader'
 
 registerShaderType('lux_toon', {
@@ -219,7 +219,7 @@ The harness does **not** implement these shaders itself (SPEC-10 FR-36). Consume
 
 ### Headless (Playwright Chromium)
 
-`npx evth run` spawns Chromium, loads the same Vite bundle, drives captures through `page.evaluate()`. Identical render path in both modes — no "headless-gl" (which is WebGL1-only and incompatible with Three.js ≥ 0.163).
+`npx tmrh run` spawns Chromium, loads the same Vite bundle, drives captures through `page.evaluate()`. Identical render path in both modes — no "headless-gl" (which is WebGL1-only and incompatible with Three.js ≥ 0.163).
 
 ## Testing
 
@@ -227,7 +227,7 @@ The harness does **not** implement these shaders itself (SPEC-10 FR-36). Consume
 npm test                 # vitest: unit tests (124+ cases — pure logic)
 npm run test:browser     # playwright: GUI smoke + Harness.capture + diff end-to-end
 npm run test:regression  # playwright + full corpus: regression suite
-npm run build            # rollup: dist/extern-material-three-visual-test-harness.mjs
+npm run build            # rollup: dist/three-material-regress-harness.mjs
 ```
 
 Current bundle: ~17 KB gzipped (peer deps external).

@@ -62,7 +62,7 @@ export function DropZone() {
   }, [setDefinition, pushEvent])
 
   return (
-    <div className={`evth-dropzone ${active ? 'active' : ''}`}>
+    <div className={`tmrh-dropzone ${active ? 'active' : ''}`}>
       <div className="hint">drop .kmp or materialDefinition.json</div>
     </div>
   )

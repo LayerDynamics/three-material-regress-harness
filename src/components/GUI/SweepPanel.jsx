@@ -87,7 +87,7 @@ export function SweepPanel({ referencePixels }) {
   return (
     <div style={{ marginTop: '1rem', padding: '0.75rem', border: '1px solid var(--border)', borderRadius: 4 }}>
       <h2 style={{ margin: '0 0 0.5rem' }}>Sweep</h2>
-      <div className="evth-params">
+      <div className="tmrh-params">
         <span className="k">field</span>
         <select value={field} onChange={onPreset} style={{ width: '100%' }}>
           {COMMON_FIELDS.map((f) => <option key={f.path} value={f.path}>{f.path}</option>)}

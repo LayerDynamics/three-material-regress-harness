@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// evth — CLI entry for extern-material-three-visual-test-harness.
+// tmrh — CLI entry for three-material-regress-harness.
 //
 // Commands:
 //   run                  Run a regression pass (default)
@@ -13,7 +13,7 @@ import { Command } from 'commander'
 import { loadConfig } from '../harness/config.js'
 import { HarnessConfigError } from '../harness/exceptions.js'
 
-const program = new Command('evth')
+const program = new Command('tmrh')
 program
   .description('Visual regression harness for Three.js materials against external-renderer baselines')
   .option('--corpus <dir>')
@@ -51,7 +51,7 @@ program
       if (cfg.report.includes('junit')) await writeJunitReport(report, join(outRoot, 'report.junit.xml'))
       const status = report.failCount === 0 ? 'PASS' : 'FAIL'
       // eslint-disable-next-line no-console
-      console.log(`[evth] ${status}: ${report.passCount}/${report.testCount} (fail=${report.failCount}) → ${outRoot}`)
+      console.log(`[tmrh] ${status}: ${report.passCount}/${report.testCount} (fail=${report.failCount}) → ${outRoot}`)
       return report
     }
 
@@ -59,7 +59,7 @@ program
       const { startWatch } = await import('./watch.js')
       const handle = await startWatch(config, runOnce)
       // eslint-disable-next-line no-console
-      console.log('[evth] watch mode — Ctrl+C to stop')
+      console.log('[tmrh] watch mode — Ctrl+C to stop')
       process.on('SIGINT', async () => {
         await handle.stop()
         process.exit(0)
@@ -67,7 +67,7 @@ program
       // Do an initial run.
       await runOnce(config).catch((err) => {
         // eslint-disable-next-line no-console
-        console.error(`[evth watch] initial run failed: ${err?.message ?? err}`)
+        console.error(`[tmrh watch] initial run failed: ${err?.message ?? err}`)
       })
       return
     }
@@ -99,7 +99,7 @@ program
     await writeHtmlReport(report, join(abs, 'report.html'))
     await writeJunitReport(report, join(abs, 'report.junit.xml'))
     // eslint-disable-next-line no-console
-    console.log(`[evth] reports re-written in ${abs}`)
+    console.log(`[tmrh] reports re-written in ${abs}`)
   })
 
 program
@@ -132,7 +132,7 @@ program
       promoted++
     }
     // eslint-disable-next-line no-console
-    console.log(`[evth] promoted ${promoted} candidate(s) to ${baselineRoot}`)
+    console.log(`[tmrh] promoted ${promoted} candidate(s) to ${baselineRoot}`)
   })
 
 program
@@ -140,13 +140,13 @@ program
   .description('Run pose-alignment pre-pass to generate missing baseline pose.json files')
   .action(async () => {
     // eslint-disable-next-line no-console
-    console.log('[evth] align-poses requires Playwright + a running Vite server; see docs/plans for M3 integration.')
+    console.log('[tmrh] align-poses requires Playwright + a running Vite server; see docs/plans for M3 integration.')
     process.exit(2)
   })
 
 program.parseAsync(process.argv).catch((err) => {
   // eslint-disable-next-line no-console
-  console.error(`[evth] ${err?.message ?? err}`)
+  console.error(`[tmrh] ${err?.message ?? err}`)
   process.exit(1)
 })
 

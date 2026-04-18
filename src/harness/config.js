@@ -42,7 +42,7 @@ function parseThreshold(raw) {
 /**
  * Load a full HarnessConfig from (argv, env).
  *
- * @param {string[]} argv  argv[0] onward — excluding "node evth" header
+ * @param {string[]} argv  argv[0] onward — excluding "node tmrh" header
  * @param {Record<string,string|undefined>} env
  * @returns {import('../../index.js').HarnessConfig}
  */
@@ -65,7 +65,7 @@ export async function loadConfig(argv = [], env = {}) {
 
   let opts = {}
   try {
-    cmd.parse(['node', 'evth', ...argv])
+    cmd.parse(['node', 'tmrh', ...argv])
     opts = cmd.opts()
   } catch (err) {
     throw new HarnessConfigError(`CLI parse error: ${err?.message ?? err}`, { cause: err })

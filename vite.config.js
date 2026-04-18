@@ -32,7 +32,7 @@ const NODE_SHIMS = new Set([
 
 /** Vite plugin: redirect Node-only imports to the browser shim. */
 const nodeShimPlugin = {
-  name: 'evth-node-shim',
+  name: 'tmrh-node-shim',
   enforce: 'pre',
   resolveId(id) {
     if (NODE_SHIMS.has(id)) return SHIM

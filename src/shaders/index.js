@@ -2,7 +2,7 @@
 // the harness's ShaderTypeRegistry. Consumers import this module from either
 // the Vite entry (main.jsx) or their own application:
 //
-//   import 'extern-material-three-visual-test-harness/dist/shaders'
+//   import 'three-material-regress-harness/dist/shaders'
 //
 // After this import, getShaderTypeHandler('lux_toon'), ('metallic_paint'),
 // ('lux_translucent'), ('lux_velvet'), ('lux_anisotropic'), ('lux_glass'),
