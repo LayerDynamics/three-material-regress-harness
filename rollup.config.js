@@ -1,14 +1,30 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { transform } from 'esbuild'
 
-// Strip `/** … */` blocks so public JSDoc (kept for IDE hover and plain-JS
-// consumers) does not bloat the browser bundle. Newlines inside each stripped
-// block are preserved so the emitted sourcemap still lines up with src/.
+// Strip `/** … */` blocks so public JSDoc does not bloat the browser bundle.
 const stripJsDoc = {
   name: 'strip-jsdoc',
   transform(code) {
     if (!code.includes('/**')) return null
     const stripped = code.replace(/\/\*\*[\s\S]*?\*\//g, (block) => block.replace(/[^\n]/g, ''))
     return { code: stripped, map: null }
+  },
+}
+
+// Transpile .jsx files via esbuild.
+const jsxTransform = {
+  name: 'evth-jsx',
+  async transform(code, id) {
+    if (!id.endsWith('.jsx')) return null
+    const result = await transform(code, {
+      loader: 'jsx',
+      jsx: 'automatic',
+      jsxImportSource: 'react',
+      sourcemap: true,
+      sourcefile: id,
+      target: 'es2023',
+    })
+    return { code: result.code, map: result.map }
   },
 }
 
@@ -49,6 +65,6 @@ export default {
     'node:crypto',
     /^three\//,
   ],
-  plugins: [stripJsDoc, nodeResolve({ preferBuiltins: true })],
-  treeshake: { moduleSideEffects: ['./src/components/App.jsx'] },
+  plugins: [jsxTransform, stripJsDoc, nodeResolve({ preferBuiltins: true })],
+  treeshake: { moduleSideEffects: false },
 }
