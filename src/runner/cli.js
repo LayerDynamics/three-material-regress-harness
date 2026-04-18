@@ -40,19 +40,39 @@ program
     const { join } = await import('node:path')
 
     const config = await loadConfig(optsToArgv(opts), process.env)
-    const report = await run(config)
 
-    const reportDir = report.meta?.configUsed?.out ?? config.out
-    const runSlug = report.startedAt.replace(/[:.]/g, '-')
-    const outRoot = join(reportDir, `${runSlug}-${report.gitSha}`)
+    const runOnce = async (cfg) => {
+      const report = await run(cfg)
+      const reportDir = report.meta?.configUsed?.out ?? cfg.out
+      const runSlug = report.startedAt.replace(/[:.]/g, '-')
+      const outRoot = join(reportDir, `${runSlug}-${report.gitSha}`)
+      if (cfg.report.includes('json')) await writeJsonReport(report, join(outRoot, 'report.json'))
+      if (cfg.report.includes('html')) await writeHtmlReport(report, join(outRoot, 'report.html'))
+      if (cfg.report.includes('junit')) await writeJunitReport(report, join(outRoot, 'report.junit.xml'))
+      const status = report.failCount === 0 ? 'PASS' : 'FAIL'
+      // eslint-disable-next-line no-console
+      console.log(`[evth] ${status}: ${report.passCount}/${report.testCount} (fail=${report.failCount}) → ${outRoot}`)
+      return report
+    }
 
-    if (config.report.includes('json')) await writeJsonReport(report, join(outRoot, 'report.json'))
-    if (config.report.includes('html')) await writeHtmlReport(report, join(outRoot, 'report.html'))
-    if (config.report.includes('junit')) await writeJunitReport(report, join(outRoot, 'report.junit.xml'))
+    if (config.watch) {
+      const { startWatch } = await import('./watch.js')
+      const handle = await startWatch(config, runOnce)
+      // eslint-disable-next-line no-console
+      console.log('[evth] watch mode — Ctrl+C to stop')
+      process.on('SIGINT', async () => {
+        await handle.stop()
+        process.exit(0)
+      })
+      // Do an initial run.
+      await runOnce(config).catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(`[evth watch] initial run failed: ${err?.message ?? err}`)
+      })
+      return
+    }
 
-    const status = report.failCount === 0 ? 'PASS' : 'FAIL'
-    // eslint-disable-next-line no-console
-    console.log(`[evth] ${status}: ${report.passCount}/${report.testCount} (fail=${report.failCount}) → ${outRoot}`)
+    const report = await runOnce(config)
     process.exit(report.failCount === 0 ? 0 : 1)
   })
 
