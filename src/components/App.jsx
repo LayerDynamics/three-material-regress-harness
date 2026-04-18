@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
-import './GUI/styles.css'
+// Note: CSS import lives in main.jsx (Vite entry) so the library bundle stays
+// CSS-free. Library consumers should import './components/GUI/styles.css'.
 import { Topbar } from './GUI/Topbar.jsx'
 import { Sidebar } from './GUI/Sidebar.jsx'
 import { ViewPort } from './GUI/ViewPort.jsx'
