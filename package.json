@@ -1,0 +1,20 @@
+{
+  "name": "extern-material-three-visual-test-harness",
+  "version": "1.0.0",
+  "description": "**To be used In Conjunction with KMP-Three-Suite**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@react-three/fiber": "^9.6.0",
+    "jest": "^30.3.0",
+    "playwright": "^1.59.1",
+    "three": "^0.184.0",
+    "zustand": "^5.0.12"
+  }
+}
