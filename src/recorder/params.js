@@ -1,7 +1,7 @@
 // Tolerances loader — three-level merge: test-specific > variant > global default.
 
 import { validateTolerances } from '../harness/params.js'
-import { DEFAULTS } from '../harness/config.js'
+import { DEFAULTS } from '../harness/defaults.js'
 
 /**
  * Load the effective Tolerances for a given test.

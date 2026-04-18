@@ -1,25 +1,11 @@
 // Harness config — merges CLI argv, env, and defaults into a HarnessConfig.
+// Node-only: loads commander lazily so browser-reachable callers never see it.
 
-import { Command } from 'commander'
 import { HarnessConfigError } from './exceptions.js'
 import { validateTolerances } from './params.js'
+import { DEFAULTS } from './defaults.js'
 
-export const DEFAULTS = Object.freeze({
-  corpus: './samples-to-match-identically-kmp-files',
-  baseline: './baselines',
-  out: './out/runs',
-  workers: 4,
-  report: ['json', 'html', 'junit'],
-  tolerances: Object.freeze({
-    rmse: 0.5,
-    pixelMismatchPct: 0.5,
-    ssim: 0.005,
-    maxChannelDiff: 10,
-    silhouetteOnly: true,
-  }),
-  updateBaselines: false,
-  filter: null,
-})
+export { DEFAULTS }
 
 const REPORT_FORMATS = new Set(['html', 'json', 'junit', 'all'])
 
@@ -60,7 +46,8 @@ function parseThreshold(raw) {
  * @param {Record<string,string|undefined>} env
  * @returns {import('../../index.js').HarnessConfig}
  */
-export function loadConfig(argv = [], env = {}) {
+export async function loadConfig(argv = [], env = {}) {
+  const { Command } = await import('commander')
   const cmd = new Command()
     .allowUnknownOption(true)
     .exitOverride()

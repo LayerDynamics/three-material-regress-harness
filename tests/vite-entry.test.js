@@ -6,8 +6,8 @@ describe('vite entry files', () => {
     expect(readFileSync('index.html', 'utf8')).toMatch(/id="root"/)
   })
 
-  it('main.js mounts App via createRoot', () => {
-    const src = readFileSync('src/main.js', 'utf8')
+  it('main.jsx mounts App via createRoot', () => {
+    const src = readFileSync('src/main.jsx', 'utf8')
     expect(src).toMatch(/createRoot/)
     expect(src).toMatch(/App/)
   })

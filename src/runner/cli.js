@@ -39,7 +39,7 @@ program
     const { writeJunitReport } = await import('./reporters/junit.js')
     const { join } = await import('node:path')
 
-    const config = loadConfig(optsToArgv(opts), process.env)
+    const config = await loadConfig(optsToArgv(opts), process.env)
     const report = await run(config)
 
     const reportDir = report.meta?.configUsed?.out ?? config.out
@@ -89,7 +89,7 @@ program
     const { readdir, readFile, copyFile, mkdir } = await import('node:fs/promises')
     const { join, resolve } = await import('node:path')
     const opts = program.opts()
-    const config = loadConfig(optsToArgv(opts), process.env)
+    const config = await loadConfig(optsToArgv(opts), process.env)
 
     // Discover latest run directory.
     const outRoot = resolve(config.out)
