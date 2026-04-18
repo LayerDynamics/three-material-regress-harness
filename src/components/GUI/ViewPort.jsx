@@ -1,23 +1,54 @@
+import { useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { useRendererStore } from '../../stores/rendererStore.js'
-import { useRecordingStore } from '../../stores/recordingStore.js'
 import { useRegressionStore } from '../../stores/regressionStore.js'
+import { useTestStore } from '../../stores/testStore.js'
+import { useHarnessStore } from '../../stores/harnessStore.js'
 import { Material } from '../Material.jsx'
 import { SceneGeometry } from './SceneGeometry.jsx'
+import { makeDiffPng } from '../../recorder/diff.js'
 
-export function ViewPort() {
+export function ViewPort({ candidatePixels, referencePixels }) {
   const camera = useRendererStore((s) => s.camera)
   const definition = useRendererStore((s) => s.materialDefinition)
   const geometryKind = useRendererStore((s) => s.geometryKind)
   const environment = useRendererStore((s) => s.environment)
+  const activeTestId = useHarnessStore((s) => s.activeTestId)
   const current = useRegressionStore((s) => s.current)
-  const candidateBlob = useRecordingStore((s) => current ? s.completed.get(current.id) : null)
+  const activeTest = useTestStore((s) => s.manifest.find((t) => t.id === activeTestId) ?? null)
+
+  const diffImageUrl = useMemo(() => {
+    if (!candidatePixels || !referencePixels) return null
+    if (candidatePixels.width !== referencePixels.width || candidatePixels.height !== referencePixels.height) return null
+    const W = candidatePixels.width
+    const H = candidatePixels.height
+    const composite = makeDiffPng(candidatePixels.pixels, referencePixels.pixels, { width: W, height: H })
+    const canvas = typeof OffscreenCanvas !== 'undefined'
+      ? new OffscreenCanvas(composite.width, composite.height)
+      : document.createElement('canvas')
+    canvas.width = composite.width
+    canvas.height = composite.height
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return null
+    const img = new ImageData(
+      new Uint8ClampedArray(composite.pixels.buffer, composite.pixels.byteOffset, composite.pixels.byteLength),
+      composite.width, composite.height,
+    )
+    ctx.putImageData(img, 0, 0)
+    if (canvas instanceof HTMLCanvasElement) return canvas.toDataURL('image/png')
+    // OffscreenCanvas path — convert via a temp HTMLCanvasElement.
+    const temp = document.createElement('canvas')
+    temp.width = composite.width
+    temp.height = composite.height
+    temp.getContext('2d')?.putImageData(img, 0, 0)
+    return temp.toDataURL('image/png')
+  }, [candidatePixels, referencePixels])
 
   return (
     <main className="evth-viewport">
       <div className="evth-pane">
-        <div className="label">Candidate (Three.js)</div>
+        <div className="label">Candidate (Three.js, live)</div>
         <div className="body" style={{ background: '#000' }}>
           <Canvas
             dpr={1}
@@ -44,17 +75,22 @@ export function ViewPort() {
       <div className="evth-pane">
         <div className="label">Reference (External)</div>
         <div className="body">
-          {current?.referencePath
-            ? <img src={current.referencePath} alt="reference" />
+          {activeTest?.referenceImagePath
+            ? <img src={activeTest.referenceImagePath} alt="reference" />
             : <span style={{ color: 'var(--muted)' }}>no active test</span>}
         </div>
       </div>
       <div className="evth-pane">
-        <div className="label">Diff</div>
+        <div className="label">
+          Diff
+          {current && <span style={{ color: current.verdict === 'pass' ? 'var(--pass)' : 'var(--fail)', marginLeft: 6 }}>
+            rmse {current.rmse.toFixed(3)} · ssim {current.ssim.toFixed(4)}
+          </span>}
+        </div>
         <div className="body">
-          {candidateBlob && typeof candidateBlob !== 'string'
-            ? <img src={URL.createObjectURL(candidateBlob)} alt="diff" />
-            : <span style={{ color: 'var(--muted)' }}>run a capture</span>}
+          {diffImageUrl
+            ? <img src={diffImageUrl} alt="diff composite" />
+            : <span style={{ color: 'var(--muted)' }}>capture to compute diff</span>}
         </div>
       </div>
     </main>

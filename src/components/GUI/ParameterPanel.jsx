@@ -1,5 +1,7 @@
 import { useRendererStore } from '../../stores/rendererStore.js'
 import { useRegressionStore } from '../../stores/regressionStore.js'
+import { SweepPanel } from './SweepPanel.jsx'
+import { SolverPanel } from './SolverPanel.jsx'
 
 const NUMERIC_FIELDS = [
   { key: 'metalness', min: 0, max: 1, step: 0.01 },
@@ -114,6 +116,9 @@ export function ParameterPanel() {
           </div>
         )}
       </div>
+
+      <SweepPanel />
+      <SolverPanel />
     </aside>
   )
 }
