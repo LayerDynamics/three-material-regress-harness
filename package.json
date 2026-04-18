@@ -1,20 +1,77 @@
 {
   "name": "extern-material-three-visual-test-harness",
-  "version": "1.0.0",
-  "description": "**To be used In Conjunction with KMP-Three-Suite**",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.1.0",
+  "description": "Dual-mode visual regression harness for Three.js materials against external-renderer baselines.",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./index.d.ts"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "@react-three/fiber": "^9.6.0",
-    "jest": "^30.3.0",
-    "playwright": "^1.59.1",
+  "bin": {
+    "evth": "./src/runner/cli.js"
+  },
+  "files": [
+    "src/",
+    "dist/",
+    "index.html",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite --port 4175",
+    "build": "rollup -c rollup.config.js && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:browser": "playwright test --config playwright.config.js",
+    "test:regression": "playwright test --config playwright.regression.config.js",
+    "lint": "eslint src tests",
+    "audit": "npm audit --audit-level=high"
+  },
+  "peerDependencies": {
     "three": "^0.184.0",
-    "zustand": "^5.0.12"
-  }
+    "@react-three/fiber": "^9.6.0",
+    "@react-three/drei": "^10.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.12",
+    "kmp-three-suite": ">=0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "kmp-three-suite": { "optional": true }
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fflate": "0.8.2",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
+    "image-ssim": "^0.2.0",
+    "chokidar": "^3.6.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.59.1",
+    "playwright": "1.59.1",
+    "three": "0.184.0",
+    "@react-three/fiber": "9.6.0",
+    "@react-three/drei": "10.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zustand": "5.0.12",
+    "vite": "^5.4.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "vitest": "^2.1.9",
+    "rollup": "^4.60.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "eslint": "^9.18.0",
+    "@eslint/js": "^9.18.0"
+  },
+  "license": "MIT"
 }
