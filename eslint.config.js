@@ -1,0 +1,45 @@
+import js from '@eslint/js'
+
+export default [
+  js.configs.recommended,
+  {
+    languageOptions: {
+      ecmaVersion: 2023,
+      sourceType: 'module',
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        performance: 'readonly',
+        URL: 'readonly',
+        Blob: 'readonly',
+        fetch: 'readonly',
+        console: 'readonly',
+        process: 'readonly',
+        globalThis: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        Uint8Array: 'readonly',
+        Uint8ClampedArray: 'readonly',
+        OffscreenCanvas: 'readonly',
+        ImageData: 'readonly',
+        HTMLCanvasElement: 'readonly',
+        HTMLElement: 'readonly',
+        Image: 'readonly',
+        FileReader: 'readonly',
+        requestAnimationFrame: 'readonly',
+        navigator: 'readonly',
+        indexedDB: 'readonly',
+        EventTarget: 'readonly',
+        CustomEvent: 'readonly',
+        DataView: 'readonly',
+        Buffer: 'readonly',
+      },
+    },
+    rules: {
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      'no-empty': ['error', { allowEmptyCatch: true }],
+    },
+  },
+]
