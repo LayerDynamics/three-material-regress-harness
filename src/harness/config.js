@@ -71,19 +71,19 @@ export async function loadConfig(argv = [], env = {}) {
     throw new HarnessConfigError(`CLI parse error: ${err?.message ?? err}`, { cause: err })
   }
 
-  const corpus = opts.corpus ?? env.EVTH_CORPUS ?? DEFAULTS.corpus
-  const baseline = opts.baseline ?? env.EVTH_BASELINE ?? DEFAULTS.baseline
-  const out = opts.out ?? env.EVTH_OUT ?? DEFAULTS.out
-  const workers = parseWorkers(opts.workers ?? env.EVTH_WORKERS)
-  const report = parseReportFormats(opts.report ?? env.EVTH_REPORT)
-  const filter = opts.filter ?? env.EVTH_FILTER ?? DEFAULTS.filter
+  const corpus = opts.corpus ?? env.TMRH_CORPUS ?? DEFAULTS.corpus
+  const baseline = opts.baseline ?? env.TMRH_BASELINE ?? DEFAULTS.baseline
+  const out = opts.out ?? env.TMRH_OUT ?? DEFAULTS.out
+  const workers = parseWorkers(opts.workers ?? env.TMRH_WORKERS)
+  const report = parseReportFormats(opts.report ?? env.TMRH_REPORT)
+  const filter = opts.filter ?? env.TMRH_FILTER ?? DEFAULTS.filter
 
   const baseTolerances = { ...DEFAULTS.tolerances }
-  const threshold = parseThreshold(opts.threshold ?? env.EVTH_THRESHOLD)
+  const threshold = parseThreshold(opts.threshold ?? env.TMRH_THRESHOLD)
   if (threshold !== null) baseTolerances.rmse = threshold
 
   const tolerances = validateTolerances(baseTolerances)
-  const updateBaselines = Boolean(opts.updateBaselines) || env.EVTH_UPDATE_BASELINES === '1'
+  const updateBaselines = Boolean(opts.updateBaselines) || env.TMRH_UPDATE_BASELINES === '1'
 
   return {
     corpus: String(corpus),
@@ -94,8 +94,8 @@ export async function loadConfig(argv = [], env = {}) {
     filter: filter ? String(filter) : null,
     tolerances,
     updateBaselines,
-    headed: Boolean(opts.headed) || env.EVTH_HEADED === '1',
-    verbose: Boolean(opts.verbose) || env.EVTH_VERBOSE === '1',
-    watch: Boolean(opts.watch) || env.EVTH_WATCH === '1',
+    headed: Boolean(opts.headed) || env.TMRH_HEADED === '1',
+    verbose: Boolean(opts.verbose) || env.TMRH_VERBOSE === '1',
+    watch: Boolean(opts.watch) || env.TMRH_WATCH === '1',
   }
 }

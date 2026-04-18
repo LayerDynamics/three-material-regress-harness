@@ -7,7 +7,7 @@ export default {
   testDir: 'tests/regression',
   testMatch: /.*\.spec\.js/,
   timeout: 180_000,
-  workers: Number(process.env.EVTH_WORKERS ?? 2),
+  workers: Number(process.env.TMRH_WORKERS ?? 2),
   retries: process.env.CI ? 1 : 0,
   reporter: [['list'], ['junit', { outputFile: 'out/regression-junit.xml' }]],
   use: { baseURL: 'http://127.0.0.1:4175' },

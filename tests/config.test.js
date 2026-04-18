@@ -27,7 +27,7 @@ describe('loadConfig', () => {
   })
 
   it('env fills gaps when CLI is silent', async () => {
-    const cfg = await loadConfig([], { EVTH_CORPUS: '/envcorpus', EVTH_WORKERS: '2', EVTH_UPDATE_BASELINES: '1' })
+    const cfg = await loadConfig([], { TMRH_CORPUS: '/envcorpus', TMRH_WORKERS: '2', TMRH_UPDATE_BASELINES: '1' })
     expect(cfg.corpus).toBe('/envcorpus')
     expect(cfg.workers).toBe(2)
     expect(cfg.updateBaselines).toBe(true)

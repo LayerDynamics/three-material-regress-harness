@@ -67,7 +67,7 @@ export async function run(config) {
   await mkdir(join(outRoot, 'diffs'), { recursive: true })
 
   const browser = await chromium.launch({ headless: !config.headed })
-  const baseUrl = config.baseUrl ?? process.env.EVTH_BASE_URL ?? 'http://127.0.0.1:4175'
+  const baseUrl = config.baseUrl ?? process.env.TMRH_BASE_URL ?? 'http://127.0.0.1:4175'
   const workerLimit = Math.max(1, Math.min(config.workers ?? 4, 16))
 
   const pagePool = await Promise.all(
